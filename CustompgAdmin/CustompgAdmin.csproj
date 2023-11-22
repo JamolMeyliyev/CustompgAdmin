@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CustompgAdmin.DataAccess\CustompgAdmin.DataAccess.csproj" />
     <ProjectReference Include="..\CustompgAdmin.Data\CustompgAdmin.Data.csproj" />
+    <ProjectReference Include="..\CustompgAdmin.Services\CustompgAdmin.Services.csproj" />
   </ItemGroup>
 
 </Project>
