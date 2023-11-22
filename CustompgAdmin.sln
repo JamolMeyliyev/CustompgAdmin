@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustompgAdmin", "CustompgAdmin\CustompgAdmin.csproj", "{155E4DA6-82EA-4409-877B-EBD3E2AD13B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin", "CustompgAdmin\CustompgAdmin.csproj", "{155E4DA6-82EA-4409-877B-EBD3E2AD13B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustompgAdmin.Data", "CustompgAdmin.Data\CustompgAdmin.Data.csproj", "{D4A2803B-BF73-434D-BC1D-D8A15D5E4012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.Services", "CustompgAdmin.Services\CustompgAdmin.Services.csproj", "{FDAB5411-8148-43B9-9D77-36A92468ECF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustompgAdmin.Services", "CustompgAdmin.Services\CustompgAdmin.Services.csproj", "{FDAB5411-8148-43B9-9D77-36A92468ECF9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustompgAdmin.DataAccess", "CustompgAdmin.DataAccess\CustompgAdmin.DataAccess.csproj", "{F21B3BDF-65D4-4AC0-957C-BF5C5C80BFA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.DataAccess", "CustompgAdmin.DataAccess\CustompgAdmin.DataAccess.csproj", "{F21B3BDF-65D4-4AC0-957C-BF5C5C80BFA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{155E4DA6-82EA-4409-877B-EBD3E2AD13B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{155E4DA6-82EA-4409-877B-EBD3E2AD13B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{155E4DA6-82EA-4409-877B-EBD3E2AD13B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4A2803B-BF73-434D-BC1D-D8A15D5E4012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4A2803B-BF73-434D-BC1D-D8A15D5E4012}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4A2803B-BF73-434D-BC1D-D8A15D5E4012}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4A2803B-BF73-434D-BC1D-D8A15D5E4012}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDAB5411-8148-43B9-9D77-36A92468ECF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDAB5411-8148-43B9-9D77-36A92468ECF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDAB5411-8148-43B9-9D77-36A92468ECF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
