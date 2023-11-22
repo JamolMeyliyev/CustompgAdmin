@@ -8,17 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.14" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CustompgAdmin.DataAccess\CustompgAdmin.DataAccess.csproj" />
-    <ProjectReference Include="..\CustompgAdmin.Data\CustompgAdmin.Data.csproj" />
     <ProjectReference Include="..\CustompgAdmin.Services\CustompgAdmin.Services.csproj" />
   </ItemGroup>
 
