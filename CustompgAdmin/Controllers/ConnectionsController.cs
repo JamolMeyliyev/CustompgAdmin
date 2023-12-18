@@ -1,6 +1,5 @@
-﻿using CustompgAdmin.DataAccess.Entities;
-using CustompgAdmin.DataAccess.Repositories.Connection;
-using Microsoft.AspNetCore.Http;
+﻿using CustompgAdmin.Services.DTOs.Connection;
+using CustompgAdmin.Services.Services.Connection;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustompgAdmin.Controllers
@@ -9,23 +8,41 @@ namespace CustompgAdmin.Controllers
     [ApiController]
     public class ConnectionsController : ControllerBase
     {
-        public readonly IConnectionRepository _repos;
-        public readonly IConfiguration _config;
+        public readonly IConnectionService _service;
+   
 
-        public ConnectionsController(IConnectionRepository repos, IConfiguration config)
+        public ConnectionsController(IConnectionService service)
         {
-            _repos = repos;
-            _config = config;
+            _service = service;
+            
+        }
+        [HttpGet]
+        [Route("All")]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _service.GetConnectionsAsync());
         }
         [HttpPost]
-        public  IActionResult Create([FromBody] ConnectionDB connection)
+        public IActionResult Create([FromBody] CreateConnectionDB connection)
         {
             try
             {
-                 _repos.CreateMigrateUpdateDatabase(connection);
-                return Ok();
+                 
+                return Ok(_service.ConnectServer(connection));
             }
             catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("{id}")]
+        public IActionResult ConnectServer(int id,string password)
+        {
+            try
+            {
+                return Ok(_service.ConnectServerForChaeckPassword(id, password));
+            }
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }

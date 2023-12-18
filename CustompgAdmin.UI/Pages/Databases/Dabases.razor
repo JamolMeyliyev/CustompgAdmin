@@ -1,0 +1,55 @@
+﻿@page "/databases"
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient;
+@inject NavigationManager NavigationManager;
+@inject ILocalStorageService Storage;
+<h3>Databases</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+
+
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < databases.Count; i++)
+        {
+            var database = databases[i];
+
+            <tr>
+                <td>@database.Name</td>
+                <td><button type="button" class="btn btn-danger" @onclick="(() => DeleteDatabase(database.Id))" >Delete</button></td>
+                <td><button type="button" class="btn btn-primary">View Tables</button></td>
+            @*  <td><button type="button" class="btn btn-primary" @onclick="(() => ToWriteQuery())">WriteQuery</button></td>*@
+               
+            </tr>
+        }
+
+    </tbody>
+</table>
+@code {
+    List<DatabaseReturnModel> databases = new List<DatabaseReturnModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        databases = (await _httpClient.GetFromJsonAsync<List<DatabaseReturnModel>>("/api/Databases")) ?? new List<DatabaseReturnModel>();
+
+    }
+    
+    
+    protected async Task DeleteDatabase(int id)
+    {
+        id = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+        //var serverId = Convert.ToInt32(await Storage.GetItemAsStringAsync("serverid"));
+        //var serverPassword = await Storage.GetItemAsStringAsync("serverPassword");
+        //var request = _httpClient.GetFromJsonAsync<string>( $"/api/Connections/{serverId}?password={serverPassword}");
+        
+        await _httpClient.DeleteAsync($"/api/Databases?id={id}");
+        
+    }
+}

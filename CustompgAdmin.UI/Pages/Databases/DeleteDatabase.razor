@@ -1,0 +1,21 @@
+﻿@page "/deletedatabase"
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService _LocalStorageService
+
+<h3>Deleted</h3>
+
+@code 
+{
+    int id;
+    protected override async Task OnInitializedAsync()
+    {
+        id = Convert.ToInt32(await _LocalStorageService.GetItemAsStringAsync("databaseId"));
+        var serverId = Convert.ToInt32(await _LocalStorageService.GetItemAsStringAsync("serverid"));
+        var serverPassword = await _LocalStorageService.GetItemAsStringAsync("serverPassword");
+        var request = new HttpRequestMessage(HttpMethod.Get, $"/api/Connections/{serverId}?password={serverPassword}");
+        await _httpClient.DeleteAsync($"/api/Databases?id={id}");
+        NavigationManager.NavigateTo("/databases");
+    }
+}

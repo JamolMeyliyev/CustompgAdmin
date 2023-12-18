@@ -1,5 +1,5 @@
 ﻿
-using CustompgAdmin.Data.Context;
+using CustompgAdmin.DataAccess.Context;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CustompgAdmin.DataAccess.UnitOfWork;

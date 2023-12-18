@@ -1,0 +1,27 @@
+﻿@page "/writequery"
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService Storage
+
+<h3>WriteQuery</h3>
+
+<form method="post" @onsubmit="(() =>Connect())" >
+
+    <InputText @bind-Value="Password" />
+    <button type="submit">Submit</button>
+</form>
+
+
+@code {
+    string Password;
+    public async Task Connect()
+    {
+
+        var id = Convert.ToInt32(await Storage.GetItemAsStringAsync("serverid"));
+        var request = new HttpRequestMessage(HttpMethod.Get, $"/api/Connections/{id}?password={Password}");
+
+        NavigationManager.NavigateTo("/databases");
+    }
+}

@@ -3,10 +3,14 @@
 
 
 using CustompgAdmin.DataAccess.Entities;
+using Npgsql;
 
-namespace CustompgAdmin.DataAccess.Repositories.Connection;
+namespace CustompgAdmin.DataAccess.Repositories;
 
 public interface IConnectionRepository
 {
-    void CreateMigrateUpdateDatabase(ConnectionDB connectionDB);
+    string Get();
+    string ConnectServer(ConnectionEntity connection);
+
 }
+

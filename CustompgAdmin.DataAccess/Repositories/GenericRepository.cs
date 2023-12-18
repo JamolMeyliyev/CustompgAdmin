@@ -1,6 +1,6 @@
 ﻿
 
-using CustompgAdmin.Data.Context;
+using CustompgAdmin.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -27,10 +27,10 @@ public abstract class GenericRepository<TEntity, TKey> : IGenericRepository<TEnt
     public virtual IQueryable<TEntity> SelectAll() =>
         _context.Set<TEntity>();
 
-    public virtual async ValueTask<TEntity> SelectByIdAsync(TKey id) =>
+    public virtual async ValueTask<TEntity?> SelectByIdAsync(TKey id) =>
         await _context.Set<TEntity>().FindAsync(id);
 
-    public virtual async ValueTask<TEntity> SelectByIdWithDetailsAsync(Expression<Func<TEntity, bool>> expression,string[] includes = null)
+    public virtual async ValueTask<TEntity?> SelectByIdWithDetailsAsync(Expression<Func<TEntity, bool>> expression,string[] includes = null)
     {
         IQueryable<TEntity> entities = this.SelectAll();
 
@@ -51,7 +51,7 @@ public abstract class GenericRepository<TEntity, TKey> : IGenericRepository<TEnt
         return entityEntry.Entity;
     }
 
-    public async ValueTask<TEntity> DeleteAsync(TEntity entity)
+    public virtual async ValueTask<TEntity> DeleteAsync(TEntity entity)
     {
         var entityEntry = _context.Set<TEntity>().Remove(entity);
 

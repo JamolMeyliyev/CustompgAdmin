@@ -1,0 +1,57 @@
+﻿@page "/"
+@using Blazored.LocalStorage;
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using System.Net.Http.Json
+@inject ILocalStorageService Storage
+@inject NavigationManager NavigationManager
+@inject HttpClient httpClient
+<PageTitle>Index</PageTitle>
+
+<h1>Connections</h1>
+
+
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<table class="table">
+    <thead>
+        <tr>
+           
+            
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < connections.Count; i++)
+        {
+            var connection = connections[i];
+
+            <tr>
+                
+                
+                <td>@connection.Name</td>
+                <td><button type="button" class="btn btn-primary" @onclick="(() => ToConnect(connection.Id))">Connect</button></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+@code{
+    List<ConnectionDto>? connections = new List<ConnectionDto>();
+ 
+    protected override async Task OnInitializedAsync()
+    {
+        connections = (await httpClient.GetFromJsonAsync<List<ConnectionDto>>("/api/Connections/All")) ?? new List<ConnectionDto>() ;
+        
+    }
+    public async Task ToConnect(int id)
+    {
+        
+        await Storage.SetItemAsStringAsync("serverid", id.ToString());
+        NavigationManager.NavigateTo($"connect");
+
+    }
+}
