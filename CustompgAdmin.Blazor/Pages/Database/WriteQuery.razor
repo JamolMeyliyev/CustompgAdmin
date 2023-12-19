@@ -1,20 +1,4 @@
-<<<<<<< Updated upstream
 ﻿
-=======
-﻿@page "/writequery"
-@using Blazored.LocalStorage;
-@using CustompgAdmin.Blazor.Models;
-@inject HttpClient _httpClient;
-@inject NavigationManager NavigationManager;
-@inject ILocalStorageService Storage;
-<h3>Query Tool</h3>
-
-<form method="post" @onsubmit="(() =>Query())" >
-
-    <InputText @bind-Value="query.Query" />
-    <button type="submit">Submit</button>
-</form>
-
 
 @code {
     QueryForString query = new QueryForString();
@@ -27,4 +11,3 @@
         NavigationManager.NavigateTo("/databases");
     }
 }
->>>>>>> Stashed changes
