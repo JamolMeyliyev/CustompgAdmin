@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.Services", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.DataAccess", "CustompgAdmin.DataAccess\CustompgAdmin.DataAccess.csproj", "{F21B3BDF-65D4-4AC0-957C-BF5C5C80BFA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustompgAdmin.Blazor", "CustompgAdmin.Blazor\CustompgAdmin.Blazor.csproj", "{19380B4E-6256-471F-997B-FD061D643B24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.Blazor", "CustompgAdmin.Blazor\CustompgAdmin.Blazor.csproj", "{19380B4E-6256-471F-997B-FD061D643B24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

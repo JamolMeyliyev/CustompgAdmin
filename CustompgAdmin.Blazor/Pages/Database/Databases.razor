@@ -24,39 +24,48 @@
 
             <tr>
                 <td>@database.Name</td>
-                <td><button type="button" class="btn btn-danger" @onclick="(() => DeleteDatabase(database.Id))" >Delete</button></td>
-                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToTables(database.Id))">View Tables</button></td>
-            @*  <td><button type="button" class="btn btn-primary" @onclick="(() => ToWriteQuery())">WriteQuery</button></td>*@
                
+                <td><button  type="button" class="btn btn-primary" @onclick="(()=> ToTables(database.Id))">View Tables</button></td>
+                <td><button  type="button" class="btn btn-primary" @onclick="(()=> ToWriteQuery(database.Id))">Create Query</button></td>
+                <td><button  type="button" class="btn btn-danger" @onclick="(()=> ToDeleteDatabase(database.Id))">Delete</button></td>
+             
             </tr>
         }
 
     </tbody>
 </table>
+
+
+<td><button type="button" class="btn btn-danger" @onclick="(()=> ToCreateDatabase())">Create Database</button></td>
 @code {
     List<DatabaseReturnModel> databases = new List<DatabaseReturnModel>();
     int id;
     protected override async Task OnInitializedAsync()
     {
         databases = (await _httpClient.GetFromJsonAsync<List<DatabaseReturnModel>>("/api/Databases")) ?? new List<DatabaseReturnModel>();
-
     }
 
 
-    protected async Task DeleteDatabase(int id)
+    public async Task ToDeleteDatabase(int id)
     {
-        id = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
-        //var serverId = Convert.ToInt32(await Storage.GetItemAsStringAsync("serverid"));
-        //var serverPassword = await Storage.GetItemAsStringAsync("serverPassword");
-        //var request = _httpClient.GetFromJsonAsync<string>( $"/api/Connections/{serverId}?password={serverPassword}");
+        await Storage.SetItemAsStringAsync("databaseId",id.ToString());
 
-        await _httpClient.DeleteAsync($"/api/Databases?id={id}");
+        NavigationManager.NavigateTo("/deletedatabase");
 
     }
 
     public async Task ToTables(int id)
     {
         await Storage.SetItemAsStringAsync("databaseId",id.ToString());
-        NavigationManager.NavigateTo($"tables");
+        NavigationManager.NavigateTo("/tables");
+    }
+    public async Task ToWriteQuery(int id)
+    {
+        await Storage.SetItemAsStringAsync("databaseId", id.ToString());
+        NavigationManager.NavigateTo("/writequery");
+    }
+    public async Task ToCreateDatabase()
+    {
+        NavigationManager.NavigateTo("/createdatabase");
     }
 }

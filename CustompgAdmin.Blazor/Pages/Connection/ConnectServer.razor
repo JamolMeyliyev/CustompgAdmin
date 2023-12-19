@@ -18,7 +18,7 @@
     {
 
         var id = Convert.ToInt32(await _LocalStorageService.GetItemAsStringAsync("serverid"));
-        var request = new HttpRequestMessage(HttpMethod.Get, $"/api/Connections/{id}?password={Password}");
+        await _httpClient.GetStringAsync($"/api/Connections/{id}?password={Password}");
         await _LocalStorageService.SetItemAsStringAsync("serverPassword",Password);
         NavigationManager.NavigateTo("/databases");
     }

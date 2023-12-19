@@ -1,0 +1,30 @@
+﻿@page "/createdatabase"
+
+@using Blazored.LocalStorage;
+
+@using CustompgAdmin.Blazor.Models.CreateModel;
+@using Newtonsoft.Json;
+@inject HttpClient _httpClient
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService _LocalStorageService
+<h3>Create Database</h3>
+
+<form method="post" @onsubmit="(() =>Connect())">
+
+    <InputText @bind-Value="model.Name" />
+    <button type="submit">Submit</button>
+</form>
+
+
+@code {
+    string name;
+    CreateDatabaseModel model = new CreateDatabaseModel();
+
+    public async Task Connect()
+    {
+        
+        var response = _httpClient.PostAsJsonAsync("/api/Databases", model);
+
+        NavigationManager.NavigateTo("/databases");
+    }
+}

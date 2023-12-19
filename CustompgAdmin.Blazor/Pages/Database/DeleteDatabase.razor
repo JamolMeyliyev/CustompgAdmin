@@ -2,19 +2,17 @@
 @using Blazored.LocalStorage;
 @inject HttpClient _httpClient
 @inject NavigationManager NavigationManager
-@inject ILocalStorageService _LocalStorageService
+@inject ILocalStorageService Storage
 
 <h3>Deleted</h3>
 
+<button type="button" class="btn btn-green" @onclick="(()=> Delete())">Approve</button>
 @code 
 {
     int id;
-    protected override async Task OnInitializedAsync()
+    protected  async Task Delete()
     {
-        id = Convert.ToInt32(await _LocalStorageService.GetItemAsStringAsync("databaseId"));
-        var serverId = Convert.ToInt32(await _LocalStorageService.GetItemAsStringAsync("serverid"));
-        var serverPassword = await _LocalStorageService.GetItemAsStringAsync("serverPassword");
-        var request = new HttpRequestMessage(HttpMethod.Get, $"/api/Connections/{serverId}?password={serverPassword}");
+        id = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
         await _httpClient.DeleteAsync($"/api/Databases?id={id}");
         NavigationManager.NavigateTo("/databases");
     }

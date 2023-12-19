@@ -1,5 +1,72 @@
+<<<<<<< Updated upstream
 ﻿<h3>Tables</h3>
 
 @code {
 
 }
+=======
+﻿@page "/tables"
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient;
+@inject NavigationManager NavigationManager;
+@inject ILocalStorageService Storage;
+<h3>Tables</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+
+
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < tables.Count; i++)
+        {
+            var table = tables[i];
+
+            <tr>
+                <td>@table.Name</td>
+
+                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToColumns(table.Id))">View Columns</button></td>
+         
+            </tr>
+        }
+
+    </tbody>
+</table>
+@*
+<td><button type="button" class="btn btn-primary" @onclick="(()=> ToWriteQuery(database.Id))">Create Query</button></td>*@
+<td><button type="button" class="btn btn-danger" @onclick="(()=> ToCreateTable())">Create Table</button></td>
+@code {
+    List<TableReturnModel> tables = new List<TableReturnModel>();
+    int id;
+    protected override async Task OnInitializedAsync()
+    {
+        id = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+        tables = (await _httpClient.GetFromJsonAsync<List<TableReturnModel>>($"/api/databases/{id}/Tables")) ?? new List<TableReturnModel>();
+    }
+
+
+   
+
+    public async Task ToColumns(int id)
+    {
+        await Storage.SetItemAsStringAsync("tableId", id.ToString());
+        NavigationManager.NavigateTo("/columns");
+    }
+    public async Task ToWriteQuery(int id)
+    {
+        await Storage.SetItemAsStringAsync("databaseId", id.ToString());
+        NavigationManager.NavigateTo("/writequery");
+    }
+    public async Task ToCreateTable()
+    {
+        NavigationManager.NavigateTo("/createdatabase");
+    }
+}
+>>>>>>> Stashed changes
