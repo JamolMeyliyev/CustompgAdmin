@@ -1,4 +1,5 @@
 ﻿using CustompgAdmin.Services.DTOs.Database;
+using CustompgAdmin.Services.DTOs.Query;
 using CustompgAdmin.Services.Services.Database;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -75,11 +76,11 @@ namespace CustompgAdmin.Controllers
        
 
         [HttpPost("write-query")]
-        public async Task<IActionResult> WriteQuery(int id, string query)
+        public async Task<IActionResult> WriteQuery([FromBody] QueryForString queryString)
         {
             try
             {
-                return Ok(await _service.WriteQuery(id, query));
+                return Ok(await _service.WriteQuery(queryString.Id,queryString.Query));
             }
             catch (Exception ex)
             {
