@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.Services", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.DataAccess", "CustompgAdmin.DataAccess\CustompgAdmin.DataAccess.csproj", "{F21B3BDF-65D4-4AC0-957C-BF5C5C80BFA9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustompgAdmin.UI", "CustompgAdmin.UI\CustompgAdmin.UI.csproj", "{8BECF578-CCAE-4E57-9444-AF72BE4B5785}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustompgAdmin.Blazor", "CustompgAdmin.Blazor\CustompgAdmin.Blazor.csproj", "{19380B4E-6256-471F-997B-FD061D643B24}"
 EndProject
 Global
@@ -29,6 +31,10 @@ Global
 		{F21B3BDF-65D4-4AC0-957C-BF5C5C80BFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F21B3BDF-65D4-4AC0-957C-BF5C5C80BFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F21B3BDF-65D4-4AC0-957C-BF5C5C80BFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BECF578-CCAE-4E57-9444-AF72BE4B5785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BECF578-CCAE-4E57-9444-AF72BE4B5785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BECF578-CCAE-4E57-9444-AF72BE4B5785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BECF578-CCAE-4E57-9444-AF72BE4B5785}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19380B4E-6256-471F-997B-FD061D643B24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19380B4E-6256-471F-997B-FD061D643B24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19380B4E-6256-471F-997B-FD061D643B24}.Release|Any CPU.ActiveCfg = Release|Any CPU

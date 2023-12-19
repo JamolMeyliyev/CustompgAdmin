@@ -12,8 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CustompgAdmin.DataAccess\CustompgAdmin.DataAccess.csproj" />
-    <ProjectReference Include="..\CustompgAdmin.Services\CustompgAdmin.Services.csproj" />
+    <Folder Include="Models\" />
+    <Folder Include="Pages\Connection\" />
+    <Folder Include="Pages\Database\" />
+    <Folder Include="Pages\Table\" />
   </ItemGroup>
 
 </Project>
