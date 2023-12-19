@@ -13,6 +13,7 @@
 
             <th scope="col">Name</th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +25,7 @@
             <tr>
                 <td>@database.Name</td>
                 <td><button type="button" class="btn btn-danger" @onclick="(() => DeleteDatabase(database.Id))" >Delete</button></td>
-                <td><button type="button" class="btn btn-primary">View Tables</button></td>
+                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToTables(database.Id))">View Tables</button></td>
             @*  <td><button type="button" class="btn btn-primary" @onclick="(() => ToWriteQuery())">WriteQuery</button></td>*@
                
             </tr>
@@ -34,22 +35,28 @@
 </table>
 @code {
     List<DatabaseReturnModel> databases = new List<DatabaseReturnModel>();
-
+    int id;
     protected override async Task OnInitializedAsync()
     {
         databases = (await _httpClient.GetFromJsonAsync<List<DatabaseReturnModel>>("/api/Databases")) ?? new List<DatabaseReturnModel>();
 
     }
-    
-    
+
+
     protected async Task DeleteDatabase(int id)
     {
         id = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
         //var serverId = Convert.ToInt32(await Storage.GetItemAsStringAsync("serverid"));
         //var serverPassword = await Storage.GetItemAsStringAsync("serverPassword");
         //var request = _httpClient.GetFromJsonAsync<string>( $"/api/Connections/{serverId}?password={serverPassword}");
-        
+
         await _httpClient.DeleteAsync($"/api/Databases?id={id}");
-        
+
+    }
+
+    public async Task ToTables(int id)
+    {
+        await Storage.SetItemAsStringAsync("databaseId",id.ToString());
+        NavigationManager.NavigateTo($"tables");
     }
 }

@@ -7,10 +7,10 @@ public class ColumnReturnModel
     public int Id { get; set; }
 
     [Column("column_name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [Column("data_type")]
-    public string DataType { get; set; }
+    public string? DataType { get; set; }
 
     
 

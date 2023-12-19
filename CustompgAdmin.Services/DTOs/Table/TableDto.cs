@@ -5,5 +5,5 @@ public class TableDto
 {
     public int Id { get; set; }
     public required string Name { get; set; }
-    public List<ColumnReturnDto> ColumnDtos { get; set; }
+    public List<ColumnReturnDto>? ColumnDtos { get; set; }
 }

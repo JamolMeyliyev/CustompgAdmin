@@ -12,22 +12,22 @@ public class ColumnDto
     public int Id { get; set; }
 
     [Column("column_name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [Column("data_type")]
-    public string DataType { get; set; }
+    public string? DataType { get; set; }
 
     [Column("character_maximum_length")]
     public int MaxLength { get; set; }
 
     [Column("is_nullable")]
-    public string IsNullable { get; set; }
+    public string? IsNullable { get; set; }
 
     [Column("column_default")]
-    public string Default { get; set; }
+    public string? Default { get; set; }
 
     [Column("constraint_name")]
-    public string ConstraintName { get; set; }
+    public string? ConstraintName { get; set; }
 
 
 }
