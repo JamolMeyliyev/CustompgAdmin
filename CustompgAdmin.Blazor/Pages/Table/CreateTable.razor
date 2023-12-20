@@ -1,0 +1,74 @@
+﻿@page "/create-table"
+@using Blazored.LocalStorage;
+
+@using CustompgAdmin.Blazor.Models.CreateModel;
+@using Newtonsoft.Json;
+@inject HttpClient _httpClient
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService Storage
+<h3>CreateTable</h3>
+
+<form method="post" @onsubmit="(() =>Create())">
+
+    <InputText @bind-Value="tableModel.Name" />
+    @if(tableModel.Columns is not null)
+    {
+
+        <table class="table">
+            <thead>
+                <tr>
+
+
+                    <th scope="col">Name</th>
+                    <th scope="col">DataType</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < tableModel.Columns.Count; i++)
+                {
+                    var column = tableModel.Columns[i];
+
+                    <tr>
+                        <td>@column.Name</td>
+                        <td>@column.DataType</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    }
+    <button type="submit">Create Table</button>
+</form>
+
+
+<form method="post" @onsubmit="AddColumn">
+
+    <InputText @bind-Value="ColumnName" />
+    <InputNumber @bind-Value="DataType" />
+    <button type="submit">Submit</button>
+</form>
+
+@code {
+    CreateTableModel tableModel = new CreateTableModel();
+
+    int databaseId;
+    string ColumnName;
+    int DataType;
+    public async Task Create()
+    {
+        databaseId = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+
+    }
+    public void AddColumn()
+    {
+        CreateColumnModel columModel = new CreateColumnModel();
+        columModel.Name = ColumnName;
+        columModel.DataType = DataType;
+        tableModel.Columns.Add(columModel);
+        NavigationManager.NavigateTo("/create-table");
+    }
+}
+
