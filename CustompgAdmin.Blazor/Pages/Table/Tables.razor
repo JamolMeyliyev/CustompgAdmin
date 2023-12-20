@@ -4,7 +4,6 @@
 @inject HttpClient _httpClient;
 @inject NavigationManager NavigationManager;
 @inject ILocalStorageService Storage;
-
 <h3>Tables</h3>
 
 <table class="table">
@@ -14,7 +13,7 @@
 
             <th scope="col">Name</th>
             <th scope="col"></th>
-            
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -25,32 +24,55 @@
 
             <tr>
                 <td>@table.Name</td>
-                @if(table.Columns is not null)
-                {
-                    <td>@table.Columns.Count()</td>
-                }
-               
-                
-                 
+
+                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToColumns(table.Id))">View Tables</button></td>
+                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToWriteQuery())">Create Query</button></td>
+                <td><button type="button" class="btn btn-danger" @onclick="(()=> ToDeleteTable(table.Id))">Delete</button></td>
+                <td><button type="button" class="btn btn-danger" @onclick="(()=> ToViewData(table.Id))">Delete</button></td>
+
             </tr>
-            
         }
 
     </tbody>
 </table>
+
+
+<td><button type="button" class="btn btn-danger" @onclick="(()=> ToCreateTable())">Create Database</button></td>
 @code {
-    List<TableReturnModel>? tables = new List<TableReturnModel>();
-    int id;
+    List<TableReturnModel> tables = new List<TableReturnModel>();
+    int databaseId;
     protected override async Task OnInitializedAsync()
     {
-        id = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
-        tables = (await _httpClient.GetFromJsonAsync<List<TableReturnModel>>($"/api/databases/{id}/Tables")) ?? new List<TableReturnModel>();
-
+        databaseId = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+        tables = (await _httpClient.GetFromJsonAsync<List<TableReturnModel>>($"/api/databases/{databaseId}/Tables")) ?? new List<TableReturnModel>();
     }
 
 
-    
+    public async Task ToDeleteTable(int id)
+    {
+        await Storage.SetItemAsStringAsync("databaseId", id.ToString());
 
-   
+        NavigationManager.NavigateTo("/deletedatabase");
+
+    }
+
+    public async Task ToColumns(int id)
+    {
+        await Storage.SetItemAsStringAsync("databaseId", id.ToString());
+        NavigationManager.NavigateTo("/tables");
+    }
+    public async Task ToWriteQuery()
+    {
+        await Storage.SetItemAsStringAsync("databaseId", databaseId.ToString());
+        NavigationManager.NavigateTo("/writequery");
+    }
+    public async Task ToCreateTable()
+    {
+        NavigationManager.NavigateTo("/createdatabase");
+    }
+    public async Task ToViewData(int id)
+    {
+        await Storage.SetItemAsStringAsync("tableId", id.ToString());
+        NavigationManager.NavigateTo("/viewdata");
+    }
 }
-
