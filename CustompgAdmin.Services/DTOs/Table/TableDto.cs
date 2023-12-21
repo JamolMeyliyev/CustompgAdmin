@@ -3,6 +3,7 @@ namespace CustompgAdmin.Services.DTOs.Table;
 
 public class TableDto
 {
+    public int DatabasId { get; set; }
     public int Id { get; set; }
     public required string Name { get; set; }
     public List<ColumnReturnDto>? ColumnDtos { get; set; }

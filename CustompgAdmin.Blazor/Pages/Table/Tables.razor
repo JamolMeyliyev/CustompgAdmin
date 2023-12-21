@@ -27,8 +27,8 @@
 
                 <td><button type="button" class="btn btn-primary" @onclick="(()=> ToColumns(table.Id))">View Tables</button></td>
                 <td><button type="button" class="btn btn-primary" @onclick="(()=> ToWriteQuery())">Create Query</button></td>
-                <td><button type="button" class="btn btn-danger" @onclick="(()=> ToDeleteTable(table.Id))">Delete</button></td>
-                <td><button type="button" class="btn btn-danger" @onclick="(()=> ToViewData(table.Id))">Delete</button></td>
+                <td><button type="button" class="btn btn-danger" @onclick="(()=> ToDeleteTable(table.Id,table.DatabaseId))">Delete</button></td>
+                <td><button type="button" class="btn btn-danger" @onclick="(()=> ToViewData(table.Id))">View Data</button></td>
 
             </tr>
         }
@@ -37,7 +37,7 @@
 </table>
 
 
-<td><button type="button" class="btn btn-danger" @onclick="(()=> ToCreateTable())">Create Database</button></td>
+<td><button type="button" class="btn btn-danger" @onclick="ToCreateTable">Create Database</button></td>
 @code {
     List<TableReturnModel> tables = new List<TableReturnModel>();
     int databaseId;
@@ -48,11 +48,12 @@
     }
 
 
-    public async Task ToDeleteTable(int id)
+    public async Task ToDeleteTable(int id,int databaseId)
     {
-        await Storage.SetItemAsStringAsync("databaseId", id.ToString());
+        await Storage.SetItemAsStringAsync("databaseId", databaseId.ToString());
+        await Storage.SetItemAsStringAsync("tableId", id.ToString());
 
-        NavigationManager.NavigateTo("/deletedatabase");
+        NavigationManager.NavigateTo("/deletetable");
 
     }
 
@@ -66,7 +67,7 @@
         await Storage.SetItemAsStringAsync("databaseId", databaseId.ToString());
         NavigationManager.NavigateTo("/writequery");
     }
-    public async Task ToCreateTable()
+    public void ToCreateTable()
     {
         NavigationManager.NavigateTo("/create-table");
     }

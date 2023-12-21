@@ -1,0 +1,22 @@
+﻿@page "/deletetable"
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService Storage
+
+<h3>Aprove is Delete Table</h3>
+
+<button type="button" class="btn btn-green" @onclick="(()=> Delete())">Approve</button>
+@code
+{
+    int databaseId;
+    int id;
+    protected async Task Delete()
+    {
+        databaseId = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+        id = Convert.ToInt32(await Storage.GetItemAsStringAsync("tableId"));
+        await _httpClient.DeleteAsync($"/api/databases/{databaseId}/Tables?id={id}");
+        await Storage.SetItemAsStringAsync("databaseId",databaseId.ToString());
+        NavigationManager.NavigateTo("/tables");
+    }
+}
