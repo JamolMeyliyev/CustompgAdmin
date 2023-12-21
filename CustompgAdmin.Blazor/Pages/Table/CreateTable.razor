@@ -62,6 +62,7 @@
     {
         databaseId = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
         tableModel.Columns = createColumns;
+        
         var response = _httpClient.PostAsJsonAsync($"/api/databases/{databaseId}/Tables", tableModel);
         await Storage.SetItemAsStringAsync("databaseId", databaseId.ToString());
         NavigationManager.NavigateTo("/tables");

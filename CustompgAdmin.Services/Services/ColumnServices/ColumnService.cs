@@ -81,7 +81,7 @@ public class ColumnService : IColumnService
 
     public async ValueTask<List<ColumnReturnDto>> GetAll(int tableId)
     {
-        var columns = await _repos.SelectAll().Select(x => x.TableId == tableId).ToListAsync();
+        var columns = await _repos.SelectAll().Where(x => x.TableId == tableId).ToListAsync();
         if(columns is null)
         {
             return new List<ColumnReturnDto>();

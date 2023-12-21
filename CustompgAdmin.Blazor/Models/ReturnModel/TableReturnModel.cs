@@ -1,4 +1,6 @@
-﻿namespace CustompgAdmin.UI.Models.ReturnModel;
+﻿using CustompgAdmin.Blazor.Models.ReturnModel;
+
+namespace CustompgAdmin.UI.Models.ReturnModel;
 
 public class TableReturnModel
 {

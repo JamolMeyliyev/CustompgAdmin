@@ -1,0 +1,57 @@
+﻿@page "/columns"
+@using Newtonsoft.Json;
+@using Blazored.LocalStorage;
+@using CustompgAdmin.Blazor.Models.CreateModel;
+@using CustompgAdmin.Blazor.Models.ReturnModel;
+@inject HttpClient _httpClient
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService Storage
+
+<h3>Columns</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+
+
+            <th scope="col">Name</th>
+          
+            
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < columns.Count; i++)
+        {
+            var column = columns[i];
+
+            <tr>
+                <td>@column.Name</td>
+                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToViewData(column.Id))">View Data</button></td>
+
+               
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+@code {
+
+    int tableId;
+    List<ColumnReturnModel> columns = new List<ColumnReturnModel>();
+    protected override async Task OnInitializedAsync()
+    {
+        tableId = Convert.ToInt32(await Storage.GetItemAsStringAsync("tableId"));
+        columns = (await _httpClient.GetFromJsonAsync<List<ColumnReturnModel>>($"/api/tables/{tableId}/Columns")) ?? new List<ColumnReturnModel>();
+    }
+    public async Task ToViewData(int id)
+    {
+
+        await Storage.SetItemAsStringAsync("columnId", id.ToString());
+        await Storage.SetItemAsStringAsync("tableId", tableId.ToString());
+
+        NavigationManager.NavigateTo("/view-data-column");
+    }
+}

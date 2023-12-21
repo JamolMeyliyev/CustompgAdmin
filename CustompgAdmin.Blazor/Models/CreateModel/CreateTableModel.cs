@@ -3,7 +3,9 @@
 namespace CustompgAdmin.Blazor.Models.CreateModel;
 
 public class CreateTableModel
+
 {
+   
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
