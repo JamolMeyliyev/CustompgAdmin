@@ -1,0 +1,59 @@
+﻿@page "/query-data"
+@using CustompgAdmin.Blazor.Models;
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient;
+@inject NavigationManager NavigationManager;
+@inject ILocalStorageService Storage;
+<h3>Result Query</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+           
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var key in data.Keys)
+        {
+            var values = data.GetValueOrDefault(key);
+
+
+                    <td>@key</td>          
+            @for (int k = 0; k < values.Count; k++)
+            {
+                             <tr>
+
+                                <td>@values[k].ToString()</td>
+                             </tr>
+            }   
+
+        }
+    </tbody>
+</table>
+
+@code {
+    Dictionary<string, List<object>> data = new Dictionary<string, List<object>>();
+    QueryForString query = new QueryForString();
+    string errorText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        query.DatabaseId = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+        query.Query = await Storage.GetItemAsStringAsync("query");
+
+        var response = await _httpClient.PostAsJsonAsync("/api/Databases/write-query", query);
+        if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+        {
+            errorText = response.ToString();
+        }
+        else
+        {
+            data = await response.Content.ReadFromJsonAsync<Dictionary<string, List<object>>>();
+        }
+    }
+}

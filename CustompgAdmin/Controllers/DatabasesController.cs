@@ -47,7 +47,7 @@ namespace CustompgAdmin.Controllers
         {
             try
             {
-                return Ok(await _service.GetDatabaseById( id));
+                return Ok(await _service.GetDatabaseById(id));
             }
             catch (Exception ex)
             {
@@ -72,15 +72,15 @@ namespace CustompgAdmin.Controllers
         {
             return Ok(_service.ViewSQLCode(createDatabase));
         }
-        
-       
+
+
 
         [HttpPost("write-query")]
         public async Task<IActionResult> WriteQuery([FromBody] QueryForString queryString)
         {
             try
             {
-                return Ok(await _service.WriteQuery(queryString.Id,queryString.Query));
+                return Ok(await _service.WriteQuery(queryString.DatabaseId, queryString.Query));
             }
             catch (Exception ex)
             {

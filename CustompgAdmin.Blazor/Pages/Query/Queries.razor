@@ -1,0 +1,40 @@
+﻿@page "/queries"
+@using CustompgAdmin.Blazor.Models.ReturnModel;
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient;
+@inject NavigationManager NavigationManager;
+@inject ILocalStorageService Storage;
+
+<h3>Queries</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < queries.Count; i++)
+        {
+            var column = queries[i];
+
+            <tr>
+                <td>@column.Query</td>
+            
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+@code {
+    List<QueryReturnModel> queries = new List<QueryReturnModel>();
+    int databaseId;
+    protected override async Task OnInitializedAsync()
+    {
+        queries = (await _httpClient.GetFromJsonAsync<List<QueryReturnModel>>($"/api/Queries")) ?? new List<QueryReturnModel>();
+    }
+}

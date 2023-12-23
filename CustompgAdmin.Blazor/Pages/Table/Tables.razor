@@ -25,7 +25,7 @@
             <tr>
                 <td>@table.Name</td>
 
-                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToColumns(table.Id))">View Tables</button></td>
+                <td><button type="button" class="btn btn-primary" @onclick="(()=> ToColumns(table.Id))">View Columns</button></td>
                 <td><button type="button" class="btn btn-primary" @onclick="(()=> ToWriteQuery())">Create Query</button></td>
                 <td><button type="button" class="btn btn-danger" @onclick="(()=> ToDeleteTable(table.Id,table.DatabaseId))">Delete</button></td>
                 <td><button type="button" class="btn btn-primary" @onclick="(()=> ToViewData(table.Id))">View Data</button></td>
@@ -33,11 +33,13 @@
             </tr>
         }
 
+
     </tbody>
 </table>
 
 
 <td><button type="button" class="btn btn-danger" @onclick="ToCreateTable">Create Table</button></td>
+<td><button type="button" class="btn btn-danger" @onclick="ToWriteQuery">Write Query</button></td>
 @code {
     List<TableReturnModel> tables = new List<TableReturnModel>();
     int databaseId;

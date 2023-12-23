@@ -1,0 +1,54 @@
+﻿@page "/viewdata"
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient;
+@inject NavigationManager NavigationManager;
+@inject ILocalStorageService Storage;
+<h3>ViewData</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+           @* @foreach(var i in data.Keys)
+            {
+                <th scope="col">@i</th>
+            }*@
+           
+            
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach(var key in data.Keys)
+        {
+            var values = data.GetValueOrDefault(key);
+
+               
+                <td>@key</td>          
+                @for(int k = 0; k < values.Count; k++)
+                {
+                     <tr>
+                   
+                        <td>@values[k].ToString()</td>
+                     </tr>
+                }   
+            
+        }
+    </tbody>
+</table>
+
+@code {
+    Dictionary<string, List<object>> data = new Dictionary<string, List<object>>();
+
+    int databaseId;
+    int tableId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        databaseId = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+        tableId = Convert.ToInt32(await Storage.GetItemAsStringAsync("tableId"));
+        data = (await _httpClient.GetFromJsonAsync<Dictionary<string, List<object>>>($"/api/databases/{databaseId}/Tables/view-data?id={tableId}")) ?? new Dictionary<string, List<object>>();
+        
+    }
+}

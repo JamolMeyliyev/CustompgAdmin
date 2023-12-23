@@ -28,6 +28,7 @@
                 <td><button type="button" class="btn btn-primary" @onclick="(()=> ToTables(database.Id))">View Tables</button></td>
                 <td><button type="button" class="btn btn-primary" @onclick="(()=> ToWriteQuery(database.Id))">Create Query</button></td>
                 <td><button type="button" class="btn btn-danger" @onclick="(()=> ToDeleteDatabase(database.Id))">Delete</button></td>
+                
 
             </tr>
         }
@@ -37,6 +38,7 @@
 
 
 <td><button type="button" class="btn btn-danger" @onclick="(()=> ToCreateDatabase())">Create Database</button></td>
+<td><button type="button" class="btn btn-danger" @onclick="(()=> ToQueries())">Queries</button></td>
 @code {
     List<DatabaseReturnModel> databases = new List<DatabaseReturnModel>();
     int id;
@@ -67,5 +69,9 @@
     public async Task ToCreateDatabase()
     {
         NavigationManager.NavigateTo("/createdatabase");
+    }
+    public async Task ToQueries()
+    {
+        NavigationManager.NavigateTo("/queries");
     }
 }

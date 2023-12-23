@@ -1,5 +1,51 @@
-﻿<h3>ViewDataByColumnId</h3>
+﻿@page "/viewdata-by-column"
+@using CustompgAdmin.UI.Models.ReturnModel;
+@using Blazored.LocalStorage;
+@inject HttpClient _httpClient;
+@inject NavigationManager NavigationManager;
+@inject ILocalStorageService Storage;
+<h3>ViewData</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+          
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var key in data.Keys)
+        {
+            var values = data.GetValueOrDefault(key);
+
+
+        <td>@key</td>
+            @for (int k = 0; k < values.Count; k++)
+            {
+            <tr>
+
+                <td>@values[k].ToString()</td>
+            </tr>
+            }
+
+        }
+    </tbody>
+</table>
 
 @code {
+    Dictionary<string, List<object>> data = new Dictionary<string, List<object>>();
 
+
+    int tableId;
+    int columnId;
+    protected override async Task OnInitializedAsync()
+    {
+        
+        tableId = Convert.ToInt32(await Storage.GetItemAsStringAsync("tableId"));
+        columnId = Convert.ToInt32(await Storage.GetItemAsStringAsync("columnId"));
+        data = (await _httpClient.GetFromJsonAsync<Dictionary<string, List<object>>>($"/api/tables/{tableId}/Columns/data?id={columnId}")) ?? new Dictionary<string, List<object>>();
+    }
 }

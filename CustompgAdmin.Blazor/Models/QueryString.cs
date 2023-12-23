@@ -2,6 +2,6 @@
 
 public class QueryForString
 {
-    public int Id { get; set; }
+    public int DatabaseId { get; set; }
     public  string Query { get; set; }
 }

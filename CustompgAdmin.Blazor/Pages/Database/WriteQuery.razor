@@ -1,4 +1,4 @@
-﻿@page "/writequery"
+@page "/writequery"
 @using Blazored.LocalStorage;
 @using CustompgAdmin.Blazor.Models;
 @inject HttpClient _httpClient;
@@ -6,7 +6,7 @@
 @inject ILocalStorageService Storage;
 <h3>Query Tool</h3>
 
-<form method="post" @onsubmit="(() =>Query())" >
+<form method="post" @onsubmit="(() =>Query())">
 
     <InputText @bind-Value="query.Query" />
     <button type="submit">Submit</button>
@@ -19,8 +19,19 @@
     public async Task Query()
     {
         string[] strings = query.Query.Split(' ');
-        query.Id =  Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
-        await _httpClient.PostAsJsonAsync<dynamic>("/api/Databases/write-query", query);
-        NavigationManager.NavigateTo("/databases");
+
+        query.DatabaseId = Convert.ToInt32(await Storage.GetItemAsStringAsync("databaseId"));
+        if (strings[0].ToLower() == "select")
+        {
+            await Storage.SetItemAsStringAsync("databaseId", query.DatabaseId.ToString());
+            await Storage.SetItemAsStringAsync("query",query.Query);
+            NavigationManager.NavigateTo("/query-data");
+        }
+        else
+        {
+            await _httpClient.PostAsJsonAsync<dynamic>("/api/Databases/write-query", query);
+            NavigationManager.NavigateTo("/databases");
+        }
+       
     }
 }

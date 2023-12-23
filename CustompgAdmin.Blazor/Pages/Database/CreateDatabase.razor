@@ -9,22 +9,35 @@
 @inject ILocalStorageService _LocalStorageService
 <h3>Create Database</h3>
 
-<form method="post" @onsubmit="(() =>Connect())">
+<form method="post" @onsubmit="(() =>Create())">
 
     <InputText @bind-Value="model.Name" />
     <button type="submit">Submit</button>
 </form>
+@if(error)
+{
+    <h4>format xato!!!</h4>
+}
 
 
 @code {
     string name;
+    bool error;
     CreateDatabaseModel model = new CreateDatabaseModel();
 
-    public async Task Connect()
+    public async Task Create()
     {
         
-        var response = _httpClient.PostAsJsonAsync("/api/Databases", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Databases", model);
 
-        NavigationManager.NavigateTo("/databases");
+        if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+        {
+            error = true;
+            NavigationManager.NavigateTo("/createdatabase");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/databases");
+        }
     }
 }
